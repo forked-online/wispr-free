@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Wispr Free: free, open-source dictation for Android. A floating mic over any supported text field, open speech models on your phone, no cloud.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%236a48ff'/%3E%3Cpath d='M9 14v4m4.5-8v12m4.5-14v16m4.5-10v4' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Wispr Free — Your voice. Your model. Your phone.</title>
+<style>
+  :root{--ink:#0f0e13;--cream:#f4f0e8;--violet:#6a48ff;--sun:#ffd23f;--mint:#53e0a4;--rec:#ff5f6d;--soft:#a7a3b3;--line:#26232f;--sans:"Inter",system-ui,sans-serif}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--cream);font:17px/1.55 var(--sans)}
+  h1,h2,h3,p{margin:0}a{color:inherit}button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+  .wrap{width:min(76rem,100% - 2rem);margin:auto}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;gap:1rem}
+  .logo{font-weight:900;font-size:1.3rem;letter-spacing:-.04em;text-decoration:none}.logo span{color:var(--violet)}
+  .pillnav{display:flex;gap:.4rem;flex-wrap:wrap}.pillnav a{padding:.45rem .9rem;border-radius:2rem;background:#1d1b24;text-decoration:none;font-size:.9rem;font-weight:600}.pillnav a:hover{background:var(--violet)}
+  .hero{padding:4rem 0 2rem;text-align:center}
+  h1{font-weight:900;font-size:clamp(2.7rem,11vw,9.5rem);line-height:.88;letter-spacing:-.06em;text-transform:uppercase}
+  h1 span{display:block}h1 .v{color:var(--violet)}h1 .s{color:var(--sun)}
+  .hero p{max-width:46ch;margin:2rem auto 0;color:var(--soft);font-size:1.2rem}
+  .cta{display:flex;justify-content:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+  .btn{min-height:50px;padding:0 1.6rem;border-radius:2rem;font-weight:800;display:inline-flex;align-items:center;text-decoration:none;border:2px solid var(--cream);background:transparent;color:var(--cream);transition:transform .15s}
+  .btn.go{background:var(--sun);color:var(--ink);border-color:var(--sun)}.btn:hover{transform:translateY(-2px)}
+  .marquee{overflow:hidden;border-block:2px solid var(--line);margin-top:4rem;padding:1rem 0;white-space:nowrap;font-weight:900;font-size:1.4rem;letter-spacing:-.02em;text-transform:uppercase}
+  .marquee div{display:inline-block;animation:mq 28s linear infinite}.marquee b{color:var(--violet);margin:0 1.2rem}@keyframes mq{to{transform:translateX(-50%)}}
+
+  /* scroll story */
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:4rem 0}
+  .steps>div{min-height:80vh;display:flex;flex-direction:column;justify-content:center;opacity:.28;transition:opacity .35s}.steps>div.on{opacity:1}
+  .num{font-weight:900;font-size:1rem;color:var(--ink);background:var(--sun);width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;margin-bottom:1.2rem}
+  .steps h2{font-weight:900;font-size:clamp(2rem,5vw,4rem);line-height:.95;letter-spacing:-.05em}.steps p{color:var(--soft);font-size:1.15rem;max-width:34ch;margin-top:1rem}
+  .sticky{position:sticky;top:6vh;height:88vh;display:grid;place-items:center}
+  .glow{position:absolute;width:26rem;height:26rem;border-radius:50%;background:radial-gradient(var(--violet),transparent 65%);opacity:.45;filter:blur(20px);transition:background .5s}
+  .sticky[data-s=recording] .glow{background:radial-gradient(var(--rec),transparent 65%)}.sticky[data-s=done] .glow{background:radial-gradient(var(--mint),transparent 65%)}
+  .demo-cap{position:absolute;bottom:0;font-size:.8rem;color:var(--soft)}
+
+  /* blocks */
+  .blocks{display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;padding:2rem 0 5rem}
+  .block{border-radius:1.6rem;padding:clamp(1.4rem,4vw,2.2rem);color:var(--ink)}.block h2{font-weight:900;font-size:clamp(2rem,4vw,3.2rem);line-height:.95;letter-spacing:-.05em;margin-bottom:1rem}.block p{max-width:40ch}
+  .b-models{background:var(--violet);color:#fff;grid-row:span 2}.b-priv{background:var(--sun)}.b-free{background:var(--mint)}
+  .mlist{display:grid;gap:.6rem;margin-top:1.6rem}.mrow{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:#ffffff1f;border-radius:1rem;padding:.9rem 1rem}
+  .mrow b{display:block;font-size:1.1rem}.mrow small{opacity:.8}
+  .mrow button{min-height:44px;padding:0 1rem;border-radius:2rem;border:2px solid #fff;background:transparent;color:#fff;font-weight:800;white-space:nowrap}.mrow button:disabled{background:#fff;color:var(--violet);cursor:default}
+  .mnote{margin-top:1rem;font-size:.9rem;opacity:.85;min-height:1.4em}
+  .x{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.35rem;font-weight:700}.x li:before{content:"✕  ";color:#c0392b}
+  .end{text-align:center;padding:5rem 0 6rem}.end h2{font-weight:900;font-size:clamp(2.4rem,8vw,6.5rem);line-height:.9;letter-spacing:-.06em;text-transform:uppercase}
+  footer{border-top:2px solid var(--line);padding:2rem 0 3rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:var(--soft);font-size:.9rem}
+
+  /* phone */
+  .phone{position:relative;width:19rem;height:36rem;background:#fff;color:#16151b;border:9px solid #000;border-radius:2.6rem;overflow:hidden;box-shadow:0 40px 90px #000a;display:flex;flex-direction:column}
+  .os{display:flex;justify-content:space-between;padding:.55rem 1.1rem;font-size:11px;font-weight:700}
+  .appbar{padding:.5rem 1rem;font-weight:800;border-bottom:1px solid #eee}
+  .chat{flex:1;padding:1rem}.in{display:inline-block;background:#efedf5;padding:.45rem .75rem;border-radius:1rem 1rem 1rem .25rem;font-size:.88rem}
+  .field{display:block;width:calc(100% - 1.4rem);text-align:left;margin:0 .7rem .6rem;border:2px solid #e3e0ec;border-radius:1.2rem;padding:.55rem .85rem;min-height:2.9rem;font-size:.9rem;background:#fff;color:inherit;cursor:text;transition:border-color .3s}
+  .phone:not([data-state=blur]) .field{border-color:#c9bfff}
+  .draft:empty:before{content:"Message";color:#a19dae}
+  .draft.typing:after{content:"";display:inline-block;width:2px;height:1em;background:#16151b;vertical-align:-.15em;animation:b .8s steps(1) infinite}@keyframes b{50%{opacity:0}}
+  .kb{background:#e9e7f0;display:grid;gap:.3rem;padding:.45rem .3rem .9rem;max-height:12rem;transition:max-height .35s ease,padding .35s ease;overflow:hidden}
+  .phone[data-state=blur] .kb{max-height:0;padding-block:0}
+  .kb div{display:flex;justify-content:center;gap:.2rem}.kb span{flex:0 1 9%;height:1.7rem;background:#fff;border-radius:.3rem;display:grid;place-items:center;font-size:.68rem;color:#55525e}.kb .sp{flex-basis:52%}.kb .fn{flex-basis:14%;background:#d6d3e0}
+  /* the overlay layer: drawn by Wispr Free above whatever app is open */
+  .overlay{position:absolute;inset:0;pointer-events:none;--y:52%}
+  .bub{pointer-events:auto;position:absolute;right:.45rem;top:var(--y);translate:0 -50%;width:50px;height:50px;border-radius:50%;border:3px solid #fff;background:var(--ink);color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px #16151b55,0 0 0 1px #16151b22;touch-action:none;transition:opacity .3s,scale .3s;animation:float 3s ease-in-out infinite}
+  .bub svg{width:22px;height:22px}.bub:active{cursor:grabbing}
+  @keyframes float{50%{transform:translateY(-3px)}}
+  .phone[data-state=blur] .bub,.phone[data-state=recording] .bub,.phone[data-state=processing] .bub{opacity:0;scale:.4;pointer-events:none}
+  .phone[data-state=done] .bub{box-shadow:0 0 0 4px var(--mint),0 10px 24px #16151b55}
+  .hint{position:absolute;right:4rem;top:var(--y);translate:0 -50%;background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:.3rem .6rem;border-radius:1rem;white-space:nowrap;opacity:0;transition:opacity .3s}
+  .hint:after{content:"";position:absolute;right:-5px;top:50%;translate:0 -50%;border:5px solid transparent;border-right:0;border-left-color:var(--ink)}
+  .phone[data-state=idle]:not(.touched) .hint{opacity:1}
+  .pill{pointer-events:auto;position:absolute;left:.6rem;right:.6rem;top:var(--y);translate:0 -50%;display:none;align-items:center;gap:.4rem;background:var(--ink);color:#fff;border-radius:2rem;padding:4px;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;box-shadow:0 14px 30px #16151b66;transform-origin:right center;animation:grow .28s cubic-bezier(.2,.9,.3,1.2)}
+  @keyframes grow{from{transform:scaleX(.18);opacity:.4}}
+  .phone[data-state=recording] .pill,.phone[data-state=processing] .pill{display:flex}
+  .pill .t{margin-left:.7rem}.pill button{width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;color:#fff}.pill svg{width:20px;height:20px}
+  .pill .cancel{background:#34313f;margin-left:auto}.pill .confirm{background:var(--mint);color:#16151b}
+  .wave{display:flex;gap:3px;align-items:center;color:var(--rec);flex:1;justify-content:center}.wave i{width:3px;height:18px;background:currentColor;border-radius:2px;animation:w .45s ease-in-out infinite alternate}.wave i:nth-child(2n){animation-delay:-.2s;height:9px}.wave i:nth-child(3n){animation-delay:-.3s;height:22px}@keyframes w{to{transform:scaleY(.3)}}
+  .proc{display:none;align-items:center;gap:.6rem;height:44px;padding:0 .8rem;color:#cfc6ff}.proc:before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid #cfc6ff55;border-top-color:#cfc6ff;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(1turn)}}
+  .phone[data-state=processing] .rec-ui{display:none}.phone[data-state=processing] .proc{display:flex}
+
+  @media(max-width:52rem){
+    .story{grid-template-columns:1fr;gap:0;padding-top:1rem}
+    .sticky{order:-1;top:0;height:auto;padding:.6rem 0 1.6rem;z-index:2;background:linear-gradient(var(--ink) 88%,transparent)}
+    .sticky .phone{zoom:.72}.glow{display:none}.demo-cap{bottom:.2rem}
+    .steps>div{min-height:55vh}.steps p{font-size:1.05rem}
+    .blocks{grid-template-columns:1fr}.b-models{grid-row:auto}
+    .mrow{flex-wrap:wrap}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mic" viewBox="0 0 24 24"><path d="M9 5a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0zm-4 6a7 7 0 0 0 14 0m-7 7v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="ok" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
+<div class="wrap">
+<nav><a class="logo" href="#">wispr<span>free</span></a><div class="pillnav"><a href="#how">How</a><a href="#models">Models</a><a href="PRODUCT.md">Spec</a></div></nav>
+<header class="hero">
+  <h1><span>Your voice.</span><span class="v">Your model.</span><span class="s">Your phone.</span></h1>
+  <p>Free, open-source dictation for Android. A floating mic sits beside any supported text box. Open speech models turn what you say into text on your phone. No cloud, no subscription.</p>
+  <div class="cta"><a class="btn go" href="#how">See how it works ↓</a><a class="btn" href="#models">Pick a model</a></div>
+</header>
+</div>
+<div class="marquee" aria-hidden="true"><div>floating mic <b>●</b> on-device <b>●</b> open source <b>●</b> open models <b>●</b> works offline <b>●</b> keep your keyboard <b>●</b> no account <b>●</b> floating mic <b>●</b> on-device <b>●</b> open source <b>●</b> open models <b>●</b> works offline <b>●</b> keep your keyboard <b>●</b> no account <b>●</b>&nbsp;</div></div>
+
+<div class="wrap">
+<section class="story" id="how">
+  <div class="steps">
+    <div data-step="idle"><span class="num">1</span><h2>Tap a text box. The bubble shows up.</h2><p>A small floating mic appears over WhatsApp, Gmail, Chrome, and other supported fields. Drag it wherever you like. Your keyboard stays as it is, and password fields never get the bubble.</p></div>
+    <div data-step="recording"><span class="num">2</span><h2>Tap the bubble. Talk.</h2><p>The bubble opens into a recording pill. The mic is on only while the pill is showing. Tap × and the recording is thrown away.</p></div>
+    <div data-step="processing"><span class="num">3</span><h2>Hit ✓.</h2><p>The mic turns off right away. An open model transcribes on your phone, even in airplane mode.</p></div>
+    <div data-step="done"><span class="num">4</span><h2>It's in your draft.</h2><p>The text lands where your cursor was. Wispr Free never presses Send. If a field won't accept it, you get a Copy button instead.</p></div>
+  </div>
+  <div class="sticky" data-s="blur">
+    <div class="glow"></div>
+    <div class="phone" data-state="blur" aria-label="Interactive Android preview">
+      <div class="os"><span>9:41</span><span>✈ offline</span></div>
+      <div class="appbar">Maya</div>
+      <div class="chat"><p class="in">Want to grab coffee after lunch?</p></div>
+      <button class="field" type="button" aria-label="Message field. Tap to focus."><span class="draft"></span></button>
+      <div class="kb" aria-hidden="true">
+        <div><span>q</span><span>w</span><span>e</span><span>r</span><span>t</span><span>y</span><span>u</span><span>i</span><span>o</span><span>p</span></div>
+        <div><span>a</span><span>s</span><span>d</span><span>f</span><span>g</span><span>h</span><span>j</span><span>k</span><span>l</span></div>
+        <div><span class="fn">⇧</span><span>z</span><span>x</span><span>c</span><span>v</span><span>b</span><span>n</span><span>m</span><span class="fn">⌫</span></div>
+        <div><span class="fn">?123</span><span class="sp"></span><span class="fn">↵</span></div>
+      </div>
+      <div class="overlay">
+        <span class="hint">Tap to talk · drag to move</span>
+        <button class="bub" type="button" aria-label="Wispr Free floating mic: start demo recording"><svg aria-hidden="true"><use href="#mic"/></svg></button>
+        <div class="pill" role="group" aria-label="Recording">
+          <span class="rec-ui t">00:00</span><span class="rec-ui wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="proc">Transcribing on-device…</span>
+          <button class="rec-ui cancel" type="button" aria-label="Cancel recording">×</button><button class="rec-ui confirm" type="button" aria-label="Stop and insert"><svg aria-hidden="true"><use href="#ok"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <p class="demo-cap">Simulated · no microphone access</p>
+  </div>
+</section>
+
+<section class="blocks" id="models">
+  <div class="block b-models">
+    <h2>Swap the brain.</h2><p>Choose an open speech model that suits your phone and languages. Keep a few and switch between them offline. These are candidates; each one gets listed only after on-device testing and a license check.</p>
+    <div class="mlist">
+      <div class="mrow" data-m="Parakeet"><div><b>Parakeet</b><small>0.6B · English · accurate</small></div><button type="button" disabled>Active</button></div>
+      <div class="mrow" data-m="Whisper tiny"><div><b>Whisper tiny</b><small>39M · multilingual · light</small></div><button type="button">Get</button></div>
+      <div class="mrow" data-m="Moonshine"><div><b>Moonshine</b><small>61M · English · fast</small></div><button type="button">Get</button></div>
+    </div>
+    <p class="mnote" id="mnote" role="status"></p>
+  </div>
+  <div class="block b-priv"><h2>Zero cloud.</h2><p>Your audio becomes text on your phone and is then discarded.</p><ul class="x"><li>No servers</li><li>No account</li><li>No saved recordings</li></ul></div>
+  <div class="block b-free"><h2>Free. Open. Yours.</h2><p>Open-source code and open models. No subscription, no lock-in. Fork it, audit it, make it better.</p></div>
+</section>
+
+<section class="end"><h2>Say it.<br><span style="color:var(--violet)">Send it</span> yourself.</h2><div class="cta"><a class="btn go" href="#how">Replay the demo ↑</a><a class="btn" href="PRODUCT.md">Read the spec</a></div></section>
+</div>
+<footer class="wrap"><span>wisprfree · Android first · tester APK, then Play Store</span><span>Simulated demo · no microphone access</span></footer>
+<script>
+const phrases=["Absolutely, meet you downstairs at two.","Running five minutes late, save me a seat.","Sounds good. I'll bring the notes."];
+const ph=document.querySelector('.phone'),stick=document.querySelector('.sticky'),$=s=>ph.querySelector(s);
+const d=$('.draft'),bub=$('.bub'),ov=$('.overlay');
+let clk,tw,pend,i=0;
+const set=s=>{ph.dataset.state=s;stick.dataset.s=s};
+const stopAll=()=>{clearInterval(clk);clearInterval(tw);clearTimeout(pend);d.classList.remove('typing')};
+const timer=()=>{const t0=Date.now();$('.t').textContent='00:00';clk=setInterval(()=>{const s=(Date.now()-t0)/1e3|0;$('.t').textContent=`0${s/60|0}:${String(s%60).padStart(2,'0')}`},250)};
+const type=txt=>{let k=0;d.classList.add('typing');tw=setInterval(()=>{d.textContent+=txt[k++];if(k>=txt.length){clearInterval(tw);d.classList.remove('typing')}},22)};
+
+// manual demo
+const record=()=>{stopAll();ph.classList.add('touched');timer();set('recording');$('.confirm').focus()};
+$('.field').onclick=()=>{if(ph.dataset.state==='blur')set('idle')};
+$('.cancel').onclick=()=>{stopAll();set(d.textContent?'done':'idle');bub.focus()};
+$('.confirm').onclick=()=>{stopAll();set('processing');pend=setTimeout(()=>{set('done');type((d.textContent?' ':'')+phrases[i++%phrases.length]);bub.focus()},700)};
+
+// the bubble floats: drag it up and down the screen edge, tap to record
+let drag=null,dragged=false;
+bub.addEventListener('pointerdown',e=>{drag={y:e.clientY,top:bub.offsetTop};dragged=false;bub.setPointerCapture(e.pointerId)});
+bub.addEventListener('pointermove',e=>{if(!drag)return;const dy=e.clientY-drag.y;if(Math.abs(dy)>6)dragged=true;if(!dragged)return;
+  const z=parseFloat(getComputedStyle(ph).zoom)||1,h=ov.clientHeight;ov.style.setProperty('--y',Math.min(.72,Math.max(.18,(drag.top+dy/z)/h))*100+'%');ph.classList.add('touched')});
+bub.addEventListener('pointerup',()=>{drag=null});
+bub.addEventListener('click',()=>{if(dragged){dragged=false;return}record()});
+
+// scroll story drives the same phone; a manual tap is never overridden by the step it is already on
+const steps=[...document.querySelectorAll('[data-step]')];let current=null;
+const show=s=>{if(s===current)return;current=s;stopAll();d.textContent='';
+  if(s==='idle'){set('blur');pend=setTimeout(()=>set('idle'),350)}
+  else{set(s);if(s==='recording')timer();if(s==='done')type(phrases[0])}};
+const mobile=matchMedia('(max-width:52rem)').matches;
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;steps.forEach(x=>x.classList.toggle('on',x===e.target));show(e.target.dataset.step)}),{rootMargin:mobile?'-62% 0px -18% 0px':'-45% 0px -45% 0px'});
+steps.forEach(s=>io.observe(s));
+
+// model library
+const rows=[...document.querySelectorAll('.mrow')],mnote=document.getElementById('mnote');
+rows.forEach(r=>r.querySelector('button').onclick=e=>{const b=e.target,n=r.dataset.m;
+  if(b.textContent==='Get'){b.textContent='…';b.disabled=true;setTimeout(()=>{b.disabled=false;b.textContent='Use';mnote.textContent=`${n} downloaded (simulated).`},800)}
+  else{rows.forEach(o=>{const ob=o.querySelector('button');if(ob.textContent==='Active'){ob.textContent='Use';ob.disabled=false}});b.textContent='Active';b.disabled=true;mnote.textContent=`Now dictating with ${n} (simulated).`}});
+</script>
+</body>
+</html>

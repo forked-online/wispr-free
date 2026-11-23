@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wispr Free — prototype B · calm editorial</title>
+<style>
+  :root{--paper:#f5f0e6;--card:#fbf8f2;--ink:#221d17;--soft:#6b6152;--rule:#ddd3c2;--clay:#b0502b;--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,ui-serif,serif;--sans:system-ui,sans-serif}
+  *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 var(--sans)}
+  h1,h2,h3,p{margin:0}a{color:inherit}button{font:inherit;cursor:pointer}:focus-visible{outline:2px solid var(--clay);outline-offset:3px}
+  .wrap{width:min(68rem,100% - 2.5rem);margin:auto}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 0;gap:1rem;flex-wrap:wrap}
+  .logo{font:600 1.35rem var(--serif);text-decoration:none;font-style:italic}
+  nav .links{display:flex;gap:1.5rem;font-size:.95rem;color:var(--soft)}nav .links a{text-decoration:none}nav .links a:hover{color:var(--ink)}
+  .eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);font-weight:600}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center;padding:4rem 0 5rem}
+  h1{font:400 clamp(2.8rem,6.4vw,5.4rem)/1.02 var(--serif);letter-spacing:-.02em;margin-top:1rem}h1 em{color:var(--clay)}
+  .lede{font-size:1.2rem;color:var(--soft);max-width:40ch;margin-top:1.6rem}
+  .cta{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap;margin-top:2.2rem}
+  .btn{min-height:46px;padding:0 1.4rem;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-weight:600;display:inline-flex;align-items:center;text-decoration:none}
+  .btn:hover{background:var(--clay);border-color:var(--clay)}.link{color:var(--soft);text-underline-offset:.25em}
+  .facts{display:flex;gap:2rem;flex-wrap:wrap;margin-top:2.8rem;padding-top:1.4rem;border-top:1px solid var(--rule);font-size:.92rem;color:var(--soft)}.facts b{display:block;font:500 1.15rem var(--serif);color:var(--ink)}
+  section{padding:5.5rem 0;border-top:1px solid var(--rule)}
+  h2{font:400 clamp(2rem,4.4vw,3.4rem)/1.08 var(--serif);letter-spacing:-.015em;margin-top:.8rem}
+  .intro{display:grid;grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:end}.intro p{color:var(--soft);font-size:1.08rem}
+  .journey{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:3.5rem;position:relative}
+  .journey:before{content:"";position:absolute;left:8%;right:8%;top:2.1rem;border-top:1px dashed var(--soft)}
+  .stop{text-align:center;padding:0 1rem;position:relative}.dot{width:4.2rem;height:4.2rem;margin:0 auto 1.2rem;border-radius:50%;background:var(--card);border:1px solid var(--rule);display:grid;place-items:center;font:1.3rem var(--serif)}
+  .stop h3{font:500 1.3rem var(--serif)}.stop p{color:var(--soft);font-size:.95rem;margin-top:.3rem}
+  .end{margin-top:3rem;text-align:center;font:italic 1.4rem var(--serif);color:var(--clay)}
+  .models{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+  .model{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:1.6rem;display:flex;flex-direction:column;gap:.7rem}
+  .model h3{font:500 1.45rem var(--serif)}.model p{color:var(--soft);font-size:.95rem}.model dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;margin:.4rem 0 0;font-size:.88rem}.model dt{color:var(--soft)}.model dd{margin:0}
+  .model .mbtn{margin-top:auto;min-height:44px;border:1px solid var(--ink);background:transparent;border-radius:3px;font-weight:600}.model .mbtn:hover:not(:disabled){background:var(--ink);color:var(--paper)}
+  .model.active{border-color:var(--clay);box-shadow:inset 0 3px 0 var(--clay)}.model .mbtn:disabled{border-color:var(--clay);color:var(--clay);cursor:default}
+  .note{margin-top:1.4rem;font-size:.9rem;color:var(--soft);font-style:italic}
+  .faq{max-width:46rem;margin-top:2.5rem}details{border-top:1px solid var(--rule);padding:1.2rem 0}details:last-child{border-bottom:1px solid var(--rule)}
+  summary{font:500 1.25rem var(--serif);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:1rem}summary:after{content:"+";color:var(--clay)}details[open] summary:after{content:"–"}
+  details p{color:var(--soft);margin-top:.7rem;max-width:60ch}
+  .closing{text-align:center;padding:6rem 0}.closing h2{max-width:18ch;margin:1rem auto 2rem}
+  footer{border-top:1px solid var(--rule);padding:2rem 0 3rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.9rem;color:var(--soft)}
+  /* phone */
+  .stage{background:#e9e0cf;border-radius:10px;padding:2.5rem 1rem 1.5rem}
+  .phone{width:min(100%,18.5rem);margin:auto;background:#fffdf9;border:7px solid #2a241d;border-radius:2.2rem;overflow:hidden;box-shadow:0 24px 50px #4a3a2433}
+  .os{display:flex;justify-content:space-between;padding:.5rem 1rem;font-size:11px;font-weight:600}
+  .appbar{padding:.5rem 1rem;font-weight:650;border-bottom:1px solid #eee6d8}
+  .chat{padding:1rem;min-height:6.5rem}.in{display:inline-block;background:#f0e8da;padding:.45rem .75rem;border-radius:1rem 1rem 1rem .25rem;font-size:.88rem}
+  .field{margin:0 .7rem;border:1px solid #d8cdb9;border-radius:1.2rem;padding:.55rem .85rem;min-height:2.8rem;font-size:.9rem}
+  .draft:empty:before{content:"Message";color:#a99d89}
+  .draft.typing:after{content:"";display:inline-block;width:2px;height:1em;background:var(--ink);vertical-align:-.15em;animation:b .8s steps(1) infinite}@keyframes b{50%{opacity:0}}
+  .dock{height:58px;display:flex;align-items:center;justify-content:flex-end;padding:0 .7rem}
+  .mic,.pill button{width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;background:var(--clay);color:#fff}
+  .mic svg,.pill svg{width:20px;height:20px}
+  .pill,.proc{display:none}.phone[data-state=recording] .pill{display:flex}.phone[data-state=processing] .proc{display:block}.phone[data-state=recording] .mic,.phone[data-state=processing] .mic{display:none}
+  .pill{width:100%;align-items:center;gap:.4rem;background:var(--ink);color:#fff;border-radius:2rem;padding:3px;font-size:12px;font-variant-numeric:tabular-nums}.pill .t{margin-left:.7rem}.pill .cancel{background:#463c31;margin-left:auto}
+  .wave{display:flex;gap:3px;align-items:center;color:#e9a27f;flex:1;justify-content:center}.wave i{width:3px;height:16px;background:currentColor;border-radius:2px;animation:w .55s ease-in-out infinite alternate}.wave i:nth-child(2n){animation-delay:-.2s;height:9px}.wave i:nth-child(3n){animation-delay:-.4s;height:20px}@keyframes w{to{transform:scaleY(.3)}}
+  .proc{font-size:12px;color:var(--soft);font-style:italic}
+  .kb{background:#efe7d9;padding:.4rem .3rem .8rem;display:grid;gap:.3rem}.kb div{display:flex;justify-content:center;gap:.2rem}.kb span{flex:0 1 9%;height:1.6rem;background:#fffdf9;border-radius:.3rem}.kb .sp{flex-basis:55%}
+  .cap{text-align:center;font-size:.82rem;color:var(--soft);margin-top:1rem;font-style:italic}
+  @media(max-width:52rem){.hero,.intro{grid-template-columns:1fr;gap:2.5rem}.journey,.models{grid-template-columns:1fr;gap:2rem}.journey:before{display:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mic" viewBox="0 0 24 24"><path d="M9 5a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0zm-4 6a7 7 0 0 0 14 0m-7 7v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="ok" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
+<div class="wrap">
+<nav><a class="logo" href="#">Wispr Free</a><div class="links"><a href="#journey">Privacy</a><a href="#models">Models</a><a href="#faq">Questions</a></div></nav>
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">Open-source dictation for Android</p>
+    <h1>Speak freely.<br><em>It stays</em> on your phone.</h1>
+    <p class="lede">Tap the mic next to any supported text field, say what you mean, and your words appear in the draft. An open speech model does the listening on your phone, not on a server.</p>
+    <div class="cta"><a class="btn" href="#demo" data-play>Try the demo</a><a class="link" href="../PRODUCT.md">Read the product spec</a></div>
+    <div class="facts"><span><b>Free</b>and open source</span><span><b>Offline</b>once a model is installed</span><span><b>Your keyboard</b>stays put</span></div>
+  </div>
+  <div class="stage" id="demo">
+    <div class="phone" data-state="idle">
+      <div class="os"><span>9:41</span><span>Airplane mode</span></div>
+      <div class="appbar">Maya</div>
+      <div class="chat"><p class="in">Want to grab coffee after lunch?</p></div>
+      <div class="field"><span class="draft"></span></div>
+      <div class="dock">
+        <button class="mic" type="button" aria-label="Start demo recording"><svg><use href="#mic"/></svg></button>
+        <div class="pill"><span class="t">00:00</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><button class="cancel" type="button" aria-label="Cancel">×</button><button class="confirm" type="button" aria-label="Insert"><svg><use href="#ok"/></svg></button></div>
+        <span class="proc">Transcribing on your phone…</span>
+      </div>
+      <div class="kb" aria-hidden="true"><div><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div><span></span><span class="sp"></span><span></span></div></div>
+    </div>
+    <p class="cap">A simulation. Tap the mic, then ✓.</p>
+  </div>
+</header>
+
+<section id="journey">
+  <div class="intro"><div><p class="eyebrow">Where your voice goes</p><h2>A very short journey.</h2></div><p>Most dictation apps send your voice to a data center and return text. Wispr Free keeps the whole loop inside your phone, so it works in airplane mode and there's nothing to leak.</p></div>
+  <div class="journey">
+    <div class="stop"><div class="dot">1</div><h3>Your microphone</h3><p>It starts only when you tap the mic and stops the moment you tap ✓.</p></div>
+    <div class="stop"><div class="dot">2</div><h3>An open model</h3><p>It runs locally. Nothing is uploaded, and recordings aren't kept.</p></div>
+    <div class="stop"><div class="dot">3</div><h3>Your draft</h3><p>Text goes into the field you were in. Sending is still up to you.</p></div>
+  </div>
+  <p class="end">…and nowhere else.</p>
+</section>
+
+<section id="models">
+  <div class="intro"><div><p class="eyebrow">Choose what listens</p><h2>Open models, your pick.</h2></div><p>Each model trades size, speed, and language coverage differently. Download the one that suits your phone, keep a few, and switch whenever you like, even offline.</p></div>
+  <div class="models" id="model-list">
+    <article class="model active" data-m="Parakeet"><p class="eyebrow">Candidate · accuracy</p><h3>Parakeet</h3><p>A larger English model for careful, punctuated dictation.</p><dl><dt>Parameters</dt><dd>0.6B</dd><dt>Languages</dt><dd>English</dd></dl><button class="mbtn" disabled>In use</button></article>
+    <article class="model" data-m="Whisper tiny"><p class="eyebrow">Candidate · languages</p><h3>Whisper tiny</h3><p>A small multilingual model for older phones and mixed-language chats.</p><dl><dt>Parameters</dt><dd>39M</dd><dt>Languages</dt><dd>Many</dd></dl><button class="mbtn">Download</button></article>
+    <article class="model" data-m="Moonshine"><p class="eyebrow">Candidate · speed</p><h3>Moonshine</h3><p>A compact English model built for fast replies on modest hardware.</p><dl><dt>Parameters</dt><dd>61M</dd><dt>Languages</dt><dd>English</dd></dl><button class="mbtn">Download</button></article>
+  </div>
+  <p class="note" id="model-note" role="status">These are candidates. A model is listed in the app only after on-device testing and a license check.</p>
+</section>
+
+<section id="faq">
+  <p class="eyebrow">Questions</p><h2>Honest answers.</h2>
+  <div class="faq">
+    <details><summary>Does it replace my keyboard?</summary><p>No. Gboard, or whatever keyboard you use, stays. Wispr Free adds a small floating mic beside supported text fields.</p></details>
+    <details><summary>Why does it need Accessibility access?</summary><p>To see which text field is focused and insert the text you confirm. It skips password fields and never presses Send.</p></details>
+    <details><summary>Will it work in every app?</summary><p>No. Some editors don't accept safe insertion. In those, you get the transcript with a Copy button, and your draft is left alone.</p></details>
+    <details><summary>When can I install it?</summary><p>A signed APK for testers comes first, then the Play Store after policy review. It's still being built.</p></details>
+  </div>
+</section>
+
+<section class="closing"><p class="eyebrow">Wispr Free</p><h2>Say what you mean. Keep it to yourself.</h2><a class="btn" href="#demo">Back to the demo</a></section>
+</div>
+<footer class="wrap"><span><i>Wispr Free</i> — free, open-source, on-device dictation</span><a href="../PRODUCT.md">Product spec</a></footer>
+<script>
+const phrases=["Absolutely, meet you downstairs at two.","Running five minutes late, save me a seat.","Sounds good. I'll bring the notes."];
+function demo(ph){const q=s=>ph.querySelector(s),d=q('.draft');let clk,t0,i=0,busy;
+  const set=s=>ph.dataset.state=s;
+  const rec=()=>{if(ph.dataset.state!=='idle'||busy)return;t0=Date.now();q('.t').textContent='00:00';clk=setInterval(()=>{const s=(Date.now()-t0)/1e3|0;q('.t').textContent=`0${s/60|0}:${String(s%60).padStart(2,'0')}`},250);set('recording');q('.confirm').focus()};
+  q('.mic').onclick=rec;
+  q('.cancel').onclick=()=>{clearInterval(clk);set('idle')};
+  q('.confirm').onclick=()=>{clearInterval(clk);set('processing');busy=1;setTimeout(()=>{set('idle');const txt=(d.textContent?' ':'')+phrases[i++%phrases.length];let k=0;d.classList.add('typing');const tw=setInterval(()=>{d.textContent+=txt[k++];if(k>=txt.length){clearInterval(tw);d.classList.remove('typing');busy=0;q('.mic').focus()}},22)},700)};
+  return {rec,confirm:()=>q('.confirm').click()};}
+const D=demo(document.querySelector('.phone'));
+document.querySelector('[data-play]').addEventListener('click',()=>{D.rec();setTimeout(D.confirm,1600)});
+const cards=[...document.querySelectorAll('.model')],note=document.getElementById('model-note');
+cards.forEach(c=>c.querySelector('.mbtn').onclick=e=>{const b=e.target,n=c.dataset.m;
+  if(b.textContent==='Download'){b.disabled=true;b.textContent='Downloading…';setTimeout(()=>{b.disabled=false;b.textContent='Use this model';note.textContent=`${n} downloaded (simulated). It's ready offline.`},900)}
+  else{cards.forEach(o=>{if(o.classList.contains('active')){o.classList.remove('active');const ob=o.querySelector('.mbtn');ob.disabled=false;ob.textContent='Use this model'}});c.classList.add('active');b.disabled=true;b.textContent='In use';note.textContent=`Switched to ${n} (simulated). Your other models stay downloaded.`}});
+</script>
+</body>
+</html>

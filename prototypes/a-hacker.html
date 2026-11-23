@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wispr Free — prototype A · hacker/FOSS</title>
+<style>
+  :root{--bg:#0c0d0b;--panel:#141612;--line:#2a2d25;--fg:#e8e4d8;--dim:#8d8f83;--amber:#ffb22e;--ok:#8be38b;--mono:ui-monospace,"JetBrains Mono","SFMono-Regular",Menlo,monospace;--sans:system-ui,sans-serif}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--sans)}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,#ffffff05 0 1px,transparent 1px 3px);z-index:9}
+  a{color:inherit}h1,h2,h3,p{margin:0}button{font:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+  .wrap{width:min(72rem,100% - 2rem);margin:auto}
+  .mono{font-family:var(--mono)}.dim{color:var(--dim)}.amber{color:var(--amber)}
+  nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px dashed var(--line);font:14px var(--mono)}
+  nav .links{display:flex;gap:1.2rem;flex-wrap:wrap}nav a{text-decoration:none;color:var(--dim)}nav a:hover{color:var(--amber)}
+  .logo{color:var(--fg)!important;font-weight:700}.logo b{color:var(--amber)}
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;padding:4.5rem 0 4rem}
+  .prompt{font:14px var(--mono);color:var(--dim);margin-bottom:1.2rem}.prompt span{color:var(--ok)}
+  h1{font:700 clamp(2.4rem,6vw,4.6rem)/1.02 var(--mono);letter-spacing:-.04em}
+  h1 .cur{display:inline-block;width:.55em;height:.9em;background:var(--amber);vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .lede{max-width:46ch;margin-top:1.4rem;color:#c9c6ba;font-size:1.1rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem;font:13px var(--mono)}
+  .tags span{border:1px solid var(--line);padding:.2rem .55rem;border-radius:4px;color:var(--dim)}.tags span b{color:var(--ok);font-weight:500}
+  .cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1.1rem;border:1px solid var(--line);background:transparent;color:var(--fg);font:600 14px var(--mono);text-decoration:none;border-radius:6px}
+  .btn:hover{border-color:var(--amber);color:var(--amber)}.btn.solid{background:var(--amber);color:#111;border-color:var(--amber)}.btn.solid:hover{background:#ffc45c;color:#111}
+  section{padding:4.5rem 0;border-top:1px dashed var(--line)}
+  .h2{font:700 clamp(1.7rem,3.6vw,2.6rem)/1.1 var(--mono);letter-spacing:-.03em;margin:.4rem 0 1rem}
+  .term{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font:14px/1.7 var(--mono)}
+  .term-bar{display:flex;gap:6px;align-items:center;padding:.6rem .9rem;border-bottom:1px solid var(--line);color:var(--dim);font-size:12px}
+  .term-bar i{width:10px;height:10px;border-radius:50%;background:#2f332b}
+  .term-body{padding:1rem 1.1rem;overflow-x:auto}
+  table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:.55rem .6rem;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--dim);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+  .state{color:var(--dim)}.state.on{color:var(--ok)}
+  .act{background:none;border:1px solid var(--line);color:var(--fg);font:13px var(--mono);padding:.25rem .6rem;border-radius:4px;min-height:32px}.act:hover:not(:disabled){border-color:var(--amber);color:var(--amber)}.act:disabled{opacity:.45;cursor:default}
+  .log{min-height:1.7em;color:var(--dim);margin-top:.6rem}
+  .pipe{display:grid;grid-template-columns:repeat(5,auto);align-items:center;justify-content:start;gap:.8rem;font:14px var(--mono);margin-top:1.5rem}
+  .node{border:1px solid var(--line);background:var(--panel);padding:.9rem 1rem;border-radius:8px}.node b{display:block;color:var(--amber);font-weight:600}.node small{color:var(--dim)}
+  .arrow{color:var(--dim)}
+  .no-cloud{margin-top:1.2rem;font:14px var(--mono);color:var(--dim)}.no-cloud s{color:#d36b5c}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+  .cmp td:nth-child(2){color:var(--dim)}.cmp td:nth-child(3){color:var(--ok)}.cmp td{white-space:normal}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:1.5rem 0 0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .steps li{background:var(--panel);padding:1.1rem 1.2rem 1.1rem 3.4rem;position:relative}.steps li:before{counter-increment:s;content:"0" counter(s);position:absolute;left:1.1rem;top:1.1rem;font:700 14px var(--mono);color:var(--amber)}
+  .steps b{font-family:var(--mono)}.steps p{color:var(--dim);font-size:.95rem}
+  footer{padding:2rem 0 3rem;border-top:1px dashed var(--line);font:13px var(--mono);color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  /* phone */
+  .phone{width:min(100%,19rem);margin:auto;background:#f4f1ea;color:#1a1a17;border:8px solid #1d1f1a;border-radius:2.2rem;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 30px 80px #ffb22e14}
+  .os{display:flex;justify-content:space-between;padding:.5rem 1rem;font:600 11px var(--mono)}
+  .appbar{padding:.5rem 1rem;font-weight:700;border-bottom:1px solid #ddd8cc}
+  .chat{padding:1rem;min-height:6.5rem}.in{display:inline-block;background:#e4dfd3;padding:.45rem .75rem;border-radius:1rem 1rem 1rem .25rem;font-size:.88rem}
+  .field{margin:0 .7rem;border:1.5px solid #bdb6a6;border-radius:1.2rem;padding:.55rem .85rem;min-height:2.8rem;font-size:.9rem;background:#fff}
+  .draft:empty:before{content:"Message";color:#9a9483}
+  .draft.typing:after{content:"";display:inline-block;width:2px;height:1em;background:#1a1a17;vertical-align:-.15em;margin-left:1px;animation:blink .8s steps(1) infinite}
+  .dock{height:58px;display:flex;align-items:center;justify-content:flex-end;padding:0 .7rem}
+  .mic,.pill button{width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;background:var(--amber);color:#111}
+  .mic svg,.pill svg{width:20px;height:20px}
+  .pill,.proc{display:none}.phone[data-state=recording] .pill{display:flex}.phone[data-state=processing] .proc{display:block}.phone[data-state=recording] .mic,.phone[data-state=processing] .mic{display:none}
+  .pill{width:100%;align-items:center;gap:.4rem;background:#1a1a17;color:#fff;border-radius:2rem;padding:3px;font:600 12px var(--mono)}.pill .t{margin-left:.6rem}.pill .cancel{background:#3a3a33;color:#fff;margin-left:auto}
+  .wave{display:flex;gap:3px;align-items:center;color:var(--amber);flex:1;justify-content:center}.wave i{width:3px;height:18px;background:currentColor;border-radius:2px;animation:w .5s ease-in-out infinite alternate}
+  .wave i:nth-child(2n){animation-delay:-.2s;height:10px}.wave i:nth-child(3n){animation-delay:-.35s;height:22px}
+  @keyframes w{to{transform:scaleY(.3)}}
+  .proc{font:600 12px var(--mono);color:#6b6657}
+  .kb{background:#dcd7cb;padding:.4rem .3rem .8rem;display:grid;gap:.3rem}.kb div{display:flex;justify-content:center;gap:.2rem}.kb span{flex:0 1 9%;height:1.6rem;background:#faf8f3;border-radius:.3rem}.kb .sp{flex-basis:55%}
+  .cap{text-align:center;font:12px var(--mono);color:var(--dim);margin-top:.9rem}
+  @media(max-width:52rem){.hero,.grid2{grid-template-columns:1fr}.pipe{grid-template-columns:1fr;justify-items:start}.arrow{transform:rotate(90deg)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mic" viewBox="0 0 24 24"><path d="M9 5a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0zm-4 6a7 7 0 0 0 14 0m-7 7v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol><symbol id="ok" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
+<div class="wrap">
+<nav><a class="logo" href="#">wispr<b>·</b>free</a><div class="links"><a href="#models">models</a><a href="#privacy">privacy</a><a href="#compare">compare</a><a href="#build">build</a></div></nav>
+
+<header class="hero">
+  <div>
+    <p class="prompt"><span>~/android</span> $ wispr --offline</p>
+    <h1>Speak.<br>It types.<br>Nothing leaves<br>the phone<span class="cur"></span></h1>
+    <p class="lede">A free, open-source voice-dictation app for Android. It runs open speech models on your phone, works with the keyboard you already use, and never uploads your audio.</p>
+    <div class="tags"><span><b>●</b> open source</span><span><b>●</b> open models</span><span><b>●</b> on-device</span><span><b>●</b> no account</span></div>
+    <div class="cta"><button class="btn solid" type="button" data-play>▶ run the demo</button><a class="btn" href="../PRODUCT.md">read the spec →</a></div>
+  </div>
+  <div>
+    <div class="phone" data-state="idle">
+      <div class="os"><span>9:41</span><span>offline ✈</span></div>
+      <div class="appbar">Maya</div>
+      <div class="chat"><p class="in">Want to grab coffee after lunch?</p></div>
+      <div class="field"><span class="draft"></span></div>
+      <div class="dock">
+        <button class="mic" type="button" aria-label="Start demo recording"><svg><use href="#mic"/></svg></button>
+        <div class="pill"><span class="t">00:00</span><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><button class="cancel" type="button" aria-label="Cancel">×</button><button class="confirm" type="button" aria-label="Insert"><svg><use href="#ok"/></svg></button></div>
+        <span class="proc">transcribing on-device…</span>
+      </div>
+      <div class="kb" aria-hidden="true"><div><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div><span></span><span class="sp"></span><span></span></div></div>
+    </div>
+    <p class="cap">simulated · no mic access · tap the mic</p>
+  </div>
+</header>
+
+<section id="models">
+  <p class="mono amber">// model studio</p>
+  <h2 class="h2">Bring an open model.<br>Swap it anytime.</h2>
+  <p class="dim" style="max-width:52ch">Download once, keep several, switch while offline. The list below shows candidates. A model ships only after it passes on-device testing and a license check.</p>
+  <div class="term" style="margin-top:1.6rem">
+    <div class="term-bar"><i></i><i></i><i></i>&nbsp; wispr models ls</div>
+    <div class="term-body">
+      <table>
+        <thead><tr><th>model</th><th>params</th><th>langs</th><th>state</th><th></th></tr></thead>
+        <tbody id="models-tb">
+          <tr data-m="parakeet"><td>parakeet-tdt-0.6b</td><td>600M</td><td>en</td><td class="state on">● active</td><td><button class="act" disabled>in use</button></td></tr>
+          <tr data-m="whisper"><td>whisper-tiny</td><td>39M</td><td>multi</td><td class="state">○ remote</td><td><button class="act">pull</button></td></tr>
+          <tr data-m="moonshine"><td>moonshine-base</td><td>61M</td><td>en</td><td class="state">○ remote</td><td><button class="act">pull</button></td></tr>
+        </tbody>
+      </table>
+      <p class="log" id="log" role="status">$ _</p>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <p class="mono amber">// data path</p>
+  <h2 class="h2">Your audio takes one short trip.</h2>
+  <div class="pipe">
+    <div class="node"><b>mic</b><small>only after you tap</small></div><span class="arrow">──▶</span>
+    <div class="node"><b>open model</b><small>runs on your phone</small></div><span class="arrow">──▶</span>
+    <div class="node"><b>your draft</b><small>never auto-sent</small></div>
+  </div>
+  <p class="no-cloud">✗ <s>server</s> &nbsp; ✗ <s>account</s> &nbsp; ✗ <s>stored recordings</s> &nbsp; ✗ <s>transcript history</s></p>
+</section>
+
+<section id="compare" class="grid2">
+  <div><p class="mono amber">// diff</p><h2 class="h2">Cloud dictation,<br>minus the cloud.</h2><p class="dim">Same flow you already know: tap, talk, done. The difference is in what's missing.</p></div>
+  <div class="term"><div class="term-bar"><i></i><i></i><i></i>&nbsp; diff cloud.txt wispr-free.txt</div><div class="term-body">
+    <table class="cmp"><thead><tr><th></th><th>typical cloud</th><th>wispr free</th></tr></thead><tbody>
+      <tr><td>audio</td><td>sent to servers</td><td>stays on phone</td></tr>
+      <tr><td>works offline</td><td>no</td><td>yes, once a model is installed</td></tr>
+      <tr><td>model</td><td>theirs, closed</td><td>yours, open, swappable</td></tr>
+      <tr><td>price</td><td>subscription</td><td>free</td></tr>
+      <tr><td>source</td><td>closed</td><td>open</td></tr>
+      <tr><td>keyboard</td><td>varies</td><td>keep your own</td></tr>
+    </tbody></table></div></div>
+</section>
+
+<section id="build">
+  <p class="mono amber">// first run</p>
+  <h2 class="h2">Three steps, then forget about it.</h2>
+  <ol class="steps">
+    <li><b>enable accessibility</b><p>Wispr Free uses it to find supported text fields and insert the draft you confirm. Password fields are skipped.</p></li>
+    <li><b>pull a model</b><p>Choose the one that fits your phone and languages. Switch later without reinstalling.</p></li>
+    <li><b>tap the mic</b><p>Android asks for mic access the first time. Tap ✓ to insert. If a field won't accept text, you get a Copy button instead.</p></li>
+  </ol>
+</section>
+</div>
+<footer class="wrap"><span>wispr·free — Android first · sideloaded APK before Play Store</span><a href="../PRODUCT.md">spec ↗</a></footer>
+<script>
+const phrases=["Absolutely, meet you downstairs at two.","Running five minutes late, save me a seat.","Sounds good. I'll bring the notes."];
+function demo(ph){const q=s=>ph.querySelector(s),d=q('.draft');let clk,t0,i=0,busy;
+  const set=s=>ph.dataset.state=s;
+  const rec=()=>{if(ph.dataset.state!=='idle'||busy)return;t0=Date.now();q('.t').textContent='00:00';clk=setInterval(()=>{const s=(Date.now()-t0)/1e3|0;q('.t').textContent=`0${s/60|0}:${String(s%60).padStart(2,'0')}`},250);set('recording');q('.confirm').focus()};
+  q('.mic').onclick=rec;
+  q('.cancel').onclick=()=>{clearInterval(clk);set('idle')};
+  q('.confirm').onclick=()=>{clearInterval(clk);set('processing');busy=1;setTimeout(()=>{set('idle');const txt=(d.textContent?' ':'')+phrases[i++%phrases.length];let k=0;d.classList.add('typing');const tw=setInterval(()=>{d.textContent+=txt[k++];if(k>=txt.length){clearInterval(tw);d.classList.remove('typing');busy=0;q('.mic').focus()}},22)},700)};
+  return {rec,confirm:()=>q('.confirm').click()};}
+const D=demo(document.querySelector('.phone'));
+document.querySelector('[data-play]').onclick=()=>{D.rec();setTimeout(D.confirm,1600)};
+const log=document.getElementById('log');
+document.querySelectorAll('#models-tb tr').forEach(tr=>tr.querySelector('.act').onclick=e=>{const b=e.target,st=tr.querySelector('.state'),m=tr.querySelector('td').textContent;
+  if(b.textContent==='pull'){b.disabled=true;let p=0;const iv=setInterval(()=>{p+=10;log.textContent=`$ wispr models pull ${m}  [${'#'.repeat(p/10).padEnd(10,'.')}] ${p}%`;if(p>=100){clearInterval(iv);st.textContent='◉ local';b.textContent='use';b.disabled=false;log.textContent=`$ ${m} ready · verified (simulated)`}},90)}
+  else{document.querySelectorAll('#models-tb tr').forEach(o=>{const s=o.querySelector('.state'),a=o.querySelector('.act');if(s.classList.contains('on')){s.classList.remove('on');s.textContent='◉ local';a.textContent='use';a.disabled=false}});st.classList.add('on');st.textContent='● active';b.textContent='in use';b.disabled=true;log.textContent=`$ wispr models use ${m}  → active (simulated)`}});
+</script>
+</body>
+</html>
