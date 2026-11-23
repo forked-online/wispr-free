@@ -1,5 +1,7 @@
 # Wispr Free — MVP plan (Android, English)
 
+**Executable tickets:** GitHub issues #1–#51 under the pinned epic [#52 MVP roadmap](https://github.com/forked-online/wispr-free/issues/52) (milestones per phase, `blocked by` links, labels `owner:*`/`size:*`/`gate`). This plan keeps the invariants, gates and edge cases; the issues carry the steps. Ticket ids `Txx` are in each issue title.
+
 Resumable from this file alone. Read first: `STATUS.md`, then `decisions/0001`–`0005`. Product scope: `/PRODUCT.md`. Evidence: `research/*.md`.
 
 **MVP done =** on the iQOO Neo 10R, a user installs the signed APK from GitHub Releases, completes onboarding, downloads the recommended model, and dictates into WhatsApp, Gmail and Chrome through the floating bubble. Text inserts at the cursor or the user gets Copy. Everything runs offline after the model download, and the BENCH pass bar holds.
