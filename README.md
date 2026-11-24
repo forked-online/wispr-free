@@ -15,3 +15,7 @@ Open [`index.html`](index.html) in a browser. It works directly from disk withou
 ## Product
 
 See [`PRODUCT.md`](PRODUCT.md) for the MVP scope, permission flow, compatibility limits, and release gates. Parakeet is a candidate, not a confirmed model. The first engineering milestone is validating recording and safe text insertion on an Android phone before committing to a speech runtime.
+
+## License
+
+GPL-3.0 — see [`LICENSE`](LICENSE) and [`NOTICE.md`](NOTICE.md).
